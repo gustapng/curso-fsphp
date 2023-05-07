@@ -14,6 +14,7 @@ $user = new \Source\Loading\User();
 $address = new \Source\Loading\Adress();
 $company = new \Source\Loading\Company();
 
+
 var_dump(
     $user,
     $address,
@@ -26,4 +27,8 @@ var_dump(
  */
 fullStackPHPClassSession("autoload composer psr-4", __LINE__);
 
+require __DIR__ . "/vendor/autoload.php";
+
+$email = new \PHPMailer\PHPMailer\PHPMailer();
+var_dump($email);
 
