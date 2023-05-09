@@ -11,7 +11,7 @@ require __DIR__ . "/source/autoload.php";
 fullStackPHPClassSession("__construct", __LINE__);
 
 //$user = new \Source\Interpretation\User();
-$user = new \Source\Interpretation\User(
+$user = new \source\Interpretation\User(
     "Gustavo",
     "Ferreira"//,
     //"guuxts@gmail.com"
