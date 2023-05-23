@@ -23,8 +23,10 @@ use Source\Database\Connect;
  */
 fullStackPHPClassSession("transaction", __LINE__);
 
-try {
     $pdo = Connect::getInstance();
+
+try {
+    //$pdo = Connect::getInstance();
     $pdo->beginTransaction();
 
     $pdo->query("
