@@ -36,7 +36,7 @@ try {
     $userId = $pdo->lastInsertId();
 
     $pdo->query("
-    INSERT INTO users_address (user_id, street, number, complement) 
+    INSERT INTO address (user_id, street, number, complement) 
     VALUES ('{$userId}', 'Av. Paulista', '123', 'Sala 2');
     ");
 
