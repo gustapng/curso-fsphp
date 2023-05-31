@@ -9,15 +9,30 @@ require __DIR__ . "/../source/autoload.php";
  */
 fullStackPHPClassSession("load", __LINE__);
 
+$model = new \Source\Models\UserModel();
+
+$user = $model->load(1);
+var_dump($user->first_name);
+var_dump($user);
 
 /*
  * [ find ] Por indexes da tabela (email)
  */
 fullStackPHPClassSession("find", __LINE__);
 
+$user = $model->find("regilton37@email.com.br");
+var_dump($user);
 
 /*
  * [ all ] Retorna diversos registros
  */
 fullStackPHPClassSession("all", __LINE__);
+
+/**
+ * @var \Source\Models\UserModel $user
+ */
+$all = $model->all(5);
+foreach ($all as $user) {
+    var_dump($user);
+}
 
