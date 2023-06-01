@@ -9,9 +9,29 @@ require __DIR__ . "/../source/autoload.php";
  */
 fullStackPHPClassSession("bootstrap", __LINE__);
 
+$model = new \Source\Models\UserModel();
+$user = $model->bootstrap(
+    "Gustavo",
+    "Ferreira",
+    "gustavoferreira3.png@gmail.com",
+    "123456789"
+);
+
+var_dump($user);
 
 /*
  * [ save create ] Salvar o usuário ativo (Active Record)
  */
 fullStackPHPClassSession("save create", __LINE__);
 
+$user->email = "cursos@gmail.com";
+
+if(!$model->find($user->email)) {
+    echo "<p class='trigger warning'>Cadastro</p>";
+    $user->save();
+} else {
+    echo "<p class='trigger accept'>Read</p>";
+    $user = $model->find($user->email);
+}
+
+var_dump($user);
