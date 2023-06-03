@@ -59,6 +59,11 @@ abstract class Model
         return $this->message;
     }
 
+    /**
+     * @param string $entity
+     * @param array $data
+     * @return int|null
+     */
     protected function create(string $entity, array $data): ?int
     {
         try {
@@ -75,6 +80,11 @@ abstract class Model
         }
     }
 
+    /**
+     * @param string $select
+     * @param string|null $params
+     * @return \PDOStatement|null
+     */
     protected function read(string $select, string $params = null): ?\PDOStatement
     {
         try {
@@ -97,16 +107,57 @@ abstract class Model
         }
     }
 
-    protected function update()
+    /**
+     * @param string $entity
+     * @param array $data
+     * @param string $terms
+     * @param string $params
+     * @return int|null
+     */
+    protected function update(string $entity, array $data, string $terms, string $params): ?int
     {
+        try {
+            $dataSet = [];
+            foreach ($data as $bind => $value) {
+                $dataSet[] = "{$bind} = :{$bind}";
+            }
+            $dataSet = implode(", ", $dataSet);
+            parse_str($params, $params);
 
+            $stmt = Connect::getInstance()->prepare("UPDATE {$entity} SET {$dataSet} WHERE {$terms}");
+            $stmt->execute($this->filter(array_merge($data, $params)));
+            return ($stmt->rowCount() ?? 1);
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
     }
 
-    protected function delete()
+    /**
+     * @param string $entity
+     * @param string $terms
+     * @param string $params
+     * @return int|null
+     */
+    protected function delete(string $entity, string $terms, string $params): ?int
     {
+        try {
+            parse_str($params, $params);
+            $stmt = Connect::getInstance()->prepare("DELETE FROM {$entity} WHERE {$terms}");
+            $stmt->execute($params);
+            return ($stmt->rowCount() ?? 1);
 
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
     }
 
+    /**
+     * @return array|null
+     * Esse método retira campos que estejam na propriedade $safe que são campos que não podem ser alterados
+     *
+     */
     protected function safe(): ?array
     {
         $safe = (array)$this->data;
@@ -116,6 +167,10 @@ abstract class Model
         return $safe;
     }
 
+    /**
+     * @param array $data
+     * @return array|null
+     */
     protected function filter(array $data): ?array
     {
         $filter = [];

@@ -6,9 +6,17 @@ namespace Source\Models;
 class UserModel extends Model
 {
     /** @var array $safe no update or create */
-    protected static $safe = ["id", "created_at", "updated_at"];
+    protected static  $safe = ["id", "created_at", "updated_at"];
     /** @var string $entity database table */
     protected static $entity = "users";
+
+    /**
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $email
+     * @param string|null $document
+     * @return $this|null
+     */
     public function bootstrap(string $firstName, string $lastName, string $email, string $document = null): ?UserModel
     {
         $this->first_name = $firstName;
@@ -18,6 +26,11 @@ class UserModel extends Model
         return $this;
     }
 
+    /**
+     * @param int $id
+     * @param string $columns
+     * @return UserModel|null
+     */
     public function load(int $id, string $columns = "*"): ?UserModel
     {
         $load = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE id = :id", "id={$id}");
@@ -28,6 +41,11 @@ class UserModel extends Model
         return $load->fetchObject(__CLASS__);
     }
 
+    /**
+     * @param $email
+     * @param string $columns
+     * @return UserModel|null
+     */
     public function find($email, string $columns = "*"): ?UserModel
     {
         $find = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE email = :email", "email={$email}");
@@ -38,6 +56,12 @@ class UserModel extends Model
         return $find->fetchObject(__CLASS__);
     }
 
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @param string $columns
+     * @return array|null
+     */
     public function all(int $limit = 30, int $offset = 0, string $columns = "*"): ?array
     {
 
@@ -50,6 +74,9 @@ class UserModel extends Model
 
     }
 
+    /**
+     * @return UserModel|$this|null
+     */
     public function save(): ?UserModel
     {
         if (!$this->required()) {
@@ -59,6 +86,20 @@ class UserModel extends Model
         /** User Update */
         if (!empty($this->id)) {
             $userId = $this->id;
+
+            $email = $this->read("SELECT id FROM users WHERE email = :email AND id != :id",
+                "email={$this->email}&id={$userId}");
+
+            if($email->rowCount()) {
+                $this->message = "O e-mail informado já pertence a outro usuário";
+                return null;
+            }
+
+            $this->update(self::$entity, $this->safe(), "id = :id", "id={$userId}");
+            if ($this->fail()) {
+                $this->message = "Erro ao atualizar, verifique os dados";
+            }
+            $this->message = "Dados atualizados com sucesso!";
         }
 
         /** User Create */
@@ -79,11 +120,28 @@ class UserModel extends Model
         return $this;
     }
 
-    public function destroy()
+    /**
+     * @return UserModel|$this|null
+     */
+    public function destroy(): ?UserModel
     {
+        if (!empty($this->id)) {
+            $this->delete(self::$entity, "id = :id", "id={$this->id}");
+        }
 
+        if ($this->fail()) {
+            $this->message = "Não foi possível remover o usuário";
+            return null;
+        }
+
+        $this->message = "Usuário removido com sucesso";
+        $this->data = null;
+        return $this;
     }
 
+    /**
+     * @return bool
+     */
     private function required(): bool
     {
         if(empty($this->first_name) || empty($this->last_name) || empty($this->email)) {
