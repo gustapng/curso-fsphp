@@ -1,8 +1,6 @@
 <?php
 
-namespace Source\Models;
-
-use Source\Database\Connect;
+namespace Source\Core;
 
 abstract class Model
 {

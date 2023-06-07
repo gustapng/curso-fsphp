@@ -1,9 +1,12 @@
 <?php
 
 namespace Source\Models;
+
+use Source\Core\Model;
+
 #[\AllowDynamicProperties]
 
-class UserModel extends Model
+class User extends Model
 {
     /** @var array $safe no update or create */
     protected static  $safe = ["id", "created_at", "updated_at"];
@@ -17,7 +20,7 @@ class UserModel extends Model
      * @param string|null $document
      * @return $this|null
      */
-    public function bootstrap(string $firstName, string $lastName, string $email, string $document = null): ?UserModel
+    public function bootstrap(string $firstName, string $lastName, string $email, string $document = null): ?User
     {
         $this->first_name = $firstName;
         $this->last_name = $lastName;
@@ -29,9 +32,9 @@ class UserModel extends Model
     /**
      * @param int $id
      * @param string $columns
-     * @return UserModel|null
+     * @return User|null
      */
-    public function load(int $id, string $columns = "*"): ?UserModel
+    public function load(int $id, string $columns = "*"): ?User
     {
         $load = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE id = :id", "id={$id}");
         if ($this->fail || !$load->rowCount()) {
@@ -44,9 +47,9 @@ class UserModel extends Model
     /**
      * @param $email
      * @param string $columns
-     * @return UserModel|null
+     * @return User|null
      */
-    public function find($email, string $columns = "*"): ?UserModel
+    public function find($email, string $columns = "*"): ?User
     {
         $find = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE email = :email", "email={$email}");
         if ($this->fail || !$find->rowCount()) {
@@ -75,9 +78,9 @@ class UserModel extends Model
     }
 
     /**
-     * @return UserModel|$this|null
+     * @return User|$this|null
      */
-    public function save(): ?UserModel
+    public function save(): ?User
     {
         if (!$this->required()) {
             return null;
@@ -121,9 +124,9 @@ class UserModel extends Model
     }
 
     /**
-     * @return UserModel|$this|null
+     * @return User|$this|null
      */
-    public function destroy(): ?UserModel
+    public function destroy(): ?User
     {
         if (!empty($this->id)) {
             $this->delete(self::$entity, "id = :id", "id={$this->id}");

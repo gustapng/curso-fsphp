@@ -1,16 +1,16 @@
 <?php
 
-namespace Source\Database;
+namespace Source\Core;
 
 use \PDO;
 use \PDOException;
 
+/**
+ *
+ */
 class Connect
 {
-    private const HOST = "localhost";
-    private const USER = "root";
-    private const DBNAME = "fullstackphp";
-    private const PASSWD = "";
+
 
     /**
      * SET NAMES utf-8 - Para os dados terem o mesmo encode do banco
@@ -33,17 +33,11 @@ class Connect
     public static function getInstance(): PDO
     {
         if(empty(self::$instance)) {
-//            "mysql:host=localhost;dbname=fullstackphp;",
-//        "root",
-//        "",
-//        [
-//            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-//        ]
             try {
                 self::$instance = new PDO(
-                    "mysql:host=" . self::HOST . ";dbname=" . self::DBNAME . ";",
-                    self::USER,
-                    self::PASSWD,
+                    "mysql:host=" . CONF_DB_HOST . ";dbname=" . CONF_DB_NAME . ";",
+                    CONF_DB_USER,
+                    CONF_DB_PASS,
                     self::OPTIONS
                 );
             } catch (PDOException $exception) {
@@ -54,10 +48,16 @@ class Connect
         return self::$instance;
     }
 
+    /**
+     * Connect constructor
+     */
     final private function __construct()
     {
     }
 
+    /**
+     * @return void Connect clone
+     */
     private function __clone()
     {
     }

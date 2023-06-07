@@ -88,6 +88,9 @@ var_dump([
 fullStackPHPClassSession("realpath", __LINE__);
 
 var_dump([
+    /**  o valor do realpath_cache_size() pode ser adicionado no realpath_cache_size, pegar o valor após terminar
+     * a aplicação
+     */
     "realpath_cache_size()" => realpath_cache_size(),
 ], [
     "realpath_cache_size" => ini_get("realpath_cache_size"),
