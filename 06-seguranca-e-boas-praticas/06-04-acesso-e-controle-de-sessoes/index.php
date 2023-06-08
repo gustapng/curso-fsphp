@@ -11,8 +11,22 @@ fullStackPHPClassSession("session", __LINE__);
 
 $session = new \Source\Core\Session();
 $session->set("user", 1);
+$session->regenarate();
+
+$session->set("stats", ["name", "email"]);
+$session->unset("stats");
+
+if (!$session->has("login")) {
+    echo "<p>Logar-se</p>";
+    $user = (new \Source\Models\User())->load(1);
+    $session->set("login", $user->data());
+}
+
+//$session->destroy();
 
 var_dump(
     $_SESSION,
-    $session->all()
+    $session->all(),
+    $session->user,
+    session_id()
 );
