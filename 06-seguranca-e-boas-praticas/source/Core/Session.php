@@ -107,4 +107,14 @@ class Session
         }
         return null;
     }
+
+    /**
+     * @return void
+     * CSRF Token
+     * @throws \Exception
+     */
+    public function csrf(): void
+    {
+        $_SESSION['csrf_token'] = base64_encode(random_bytes(20));
+    }
 }
