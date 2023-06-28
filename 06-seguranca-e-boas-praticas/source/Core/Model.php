@@ -2,6 +2,9 @@
 
 namespace Source\Core;
 
+/**
+ *
+ */
 abstract class Model
 {
 
@@ -11,9 +14,22 @@ abstract class Model
     /** @var \PDOException|null */
     protected $fail;
 
-    /** @var string|null */
+    /** @var Message|null */
     protected $message;
 
+    /**
+     * Model contructor
+     */
+    public function __construct()
+    {
+        $this->message = new Message();
+    }
+
+    /**
+     * @param string $name
+     * @param $value
+     * @return void
+     */
     public function __set(string $name, $value): void
     {
         if (empty($this->data)) {
@@ -23,11 +39,19 @@ abstract class Model
         $this->data->$name = $value;
     }
 
+    /**
+     * @param $name
+     * @return bool
+     */
     public function __isset($name)
     {
         return isset($this->data->$name);
     }
 
+    /**
+     * @param string $name
+     * @return null
+     */
     public function __get(string $name)
     {
         return ($this->data->$name ?? null);
@@ -50,9 +74,9 @@ abstract class Model
     }
 
     /**
-     * @return string|null
+     * @return Message|null
      */
-    public function message(): ?string
+    public function message(): ?Message
     {
         return $this->message;
     }
@@ -177,5 +201,19 @@ abstract class Model
         }
 
         return $filter;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function required(): bool
+    {
+        $data = (array)$this->data();
+        foreach (static::$required as $field) {
+            if (empty($data[$field])) {
+                return false;
+            }
+        }
+        return true;
     }
 }
