@@ -77,7 +77,9 @@ class User extends Model
     public function all(int $limit = 30, int $offset = 0, string $columns = "*"): ?array
     {
 
-        $all = $this->read("SELECT {$columns} FROM " . self::$entity . " LIMIT :l OFFSET :o ", "l={$limit}&o={$offset}");
+        $all = $this->read("SELECT {$columns} FROM " . self::$entity . " LIMIT :limit OFFSET :offset ",
+            "limit={$limit}&offset={$offset}");
+
         if ($this->fail || !$all->rowCount()) {
             return null;
         }
@@ -93,6 +95,20 @@ class User extends Model
         if (!$this->required()) {
             $this->message->warning("Nome, sobrenome, email e senha são obrigatórios!");
             return null;
+        }
+
+        if (!is_email($this->email)) {
+            $this->message->warning("O email informado não tem um formato válido");
+            return null;
+        }
+
+        if(!is_passwd($this->password)) {
+            $min = CONF_PASSWD_MIN_LEN;
+            $max = CONF_PASSWD_MAX_LEN;
+            $this->message->warning("A senha deve ter entre {$min} e {$max} caracteres");
+            return null;
+        } else {
+            $this->password = passwd($this->password);
         }
 
         /** User Update */
