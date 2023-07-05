@@ -1,0 +1,26 @@
+{
+  "name": "gustapng/fsphp",
+  "description": "Formação Full Stack PHP Developer",
+  "minimum-stability": "stable",
+  "authors": [{
+    "name": "Gustavo Ferreira",
+    "email": "gustavoferreira.png@gmail.com",
+    "homepage": "http://gustavoferreira.dev.br",
+    "role": "Developer"
+  }],
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "autoload": {
+    "psr-4": {
+      "Source\\": "source/"
+    },
+    "files": [
+      "source/Support/Config.php",
+      "source/Support/Helpers.php"
+    ]
+  },
+  "require": {
+    "phpmailer/phpmailer": "^6.8.0"
+  }
+}
