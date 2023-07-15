@@ -5,7 +5,7 @@
   "authors": [{
     "name": "Gustavo Ferreira",
     "email": "gustavoferreira.png@gmail.com",
-    "homepage": "http://gustavoferreira.dev.br",
+    "homepage": "https://gustavoferreira.dev.br",
     "role": "Developer"
   }],
   "config": {
@@ -21,6 +21,8 @@
     ]
   },
   "require": {
-    "phpmailer/phpmailer": "^6.8.0"
+    "phpmailer/phpmailer": "^6.8.0",
+    "league/plates": "^3.5",
+    "coffeecode/uploader": "2.0.*"
   }
 }

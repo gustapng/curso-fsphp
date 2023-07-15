@@ -181,9 +181,38 @@ function str_limit_chars(string $string, int $limit, string $pointer = "..."): s
  * @param string $path
  * @return string
  */
+
 function url(string $path): string
 {
     return CONF_URL_BASE . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+}
+
+
+/**
+ * ###############
+ * ###   URL   ###
+ * ###############
+ */
+
+/**
+ * @param string $date
+ * @param string $format
+ * @return string
+ * @throws Exception
+ */
+function date_fmt(?string $date, string $format = "d/m/Y H\hi"): string
+{
+    $date = (empty($date) ? "now" : $date);
+    return (new DateTime($date))->format($format);
+}
+function date_fmt_br(string $date = "now"): string
+{
+    return (new DateTime($date))->format(CONF_DATE_BR);
+}
+
+function date_fmt_app(string $date = "now"): string
+{
+    return (new DateTime($date))->format(CONF_DATE_APP);
 }
 
 /**
