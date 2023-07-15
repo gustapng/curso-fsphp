@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DATABASE
  */
@@ -7,6 +8,21 @@ define("CONF_DB_USER", "root");
 define("CONF_DB_PASS", "");
 define("CONF_DB_NAME", "upinside");
 
+/**
+ * SITE
+ */
+define("CONF_SITE_NAME", "Gustavo Ferreira");
+define("CONF_SITE_LANG", "pt_BR");
+define("CONF_SITE_DOMAIN", "gustavoferreira.dev.br");
+
+/**
+ * SOCIAL
+ */
+define("CONF_SOCIAL_TWITTER_CREATOR", "@Gustavo39545188");
+define("CONF_SOCIAL_TWITTER_PUBLISHER", "@Gustavo39545188");
+define("CONF_SOCIAL_FACEBOOK_APP", "1231312312");
+define("CONF_SOCIAL_FACEBOOK_PAGE", "upinside");
+define("CONF_SOCIAL_FACEBOOK_AUTHOR", "robsonvleiteoficial");
 
 /**
  * PROJECT URLs
