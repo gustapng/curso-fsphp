@@ -6,6 +6,12 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Source\\' => array($baseDir . '/source'),
+    'WebPConvert\\' => array($vendorDir . '/rosell-dk/webp-convert/src'),
+    'Source\\' => array($baseDir . '/Source'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'League\\Plates\\' => array($vendorDir . '/league/plates/src'),
+    'ImageMimeTypeGuesser\\' => array($vendorDir . '/rosell-dk/image-mime-type-guesser/src'),
+    'CoffeeCode\\Uploader\\' => array($vendorDir . '/coffeecode/uploader/src'),
+    'CoffeeCode\\Optimizer\\' => array($vendorDir . '/coffeecode/optimizer/src'),
+    'CoffeeCode\\Cropper\\' => array($vendorDir . '/coffeecode/cropper/src'),
 );

@@ -7,11 +7,15 @@ namespace Composer\Autoload;
 class ComposerStaticInit996cf6b33f54d11a073b038086ae9422
 {
     public static $files = array (
-        'c59092e6c34dd3f9f32c1f4b207b4410' => __DIR__ . '/../..' . '/source/Support/Config.php',
-        '81a2e88cad0601776a187e1fdc3b2398' => __DIR__ . '/../..' . '/source/Support/Helpers.php',
+        '7ac44282cd72c7292cff3c27148e2d05' => __DIR__ . '/../..' . '/Source/Support/Config.php',
+        'ea1a067d0ae2bb62601d710a57496348' => __DIR__ . '/../..' . '/Source/Support/Helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'WebPConvert\\' => 12,
+        ),
         'S' => 
         array (
             'Source\\' => 7,
@@ -20,16 +24,54 @@ class ComposerStaticInit996cf6b33f54d11a073b038086ae9422
         array (
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'L' => 
+        array (
+            'League\\Plates\\' => 14,
+        ),
+        'I' => 
+        array (
+            'ImageMimeTypeGuesser\\' => 21,
+        ),
+        'C' => 
+        array (
+            'CoffeeCode\\Uploader\\' => 20,
+            'CoffeeCode\\Optimizer\\' => 21,
+            'CoffeeCode\\Cropper\\' => 19,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'WebPConvert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/webp-convert/src',
+        ),
         'Source\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/source',
+            0 => __DIR__ . '/../..' . '/Source',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'League\\Plates\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/plates/src',
+        ),
+        'ImageMimeTypeGuesser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src',
+        ),
+        'CoffeeCode\\Uploader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/coffeecode/uploader/src',
+        ),
+        'CoffeeCode\\Optimizer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/coffeecode/optimizer/src',
+        ),
+        'CoffeeCode\\Cropper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/coffeecode/cropper/src',
         ),
     );
 
