@@ -23,6 +23,11 @@ class Web extends Controller
         echo "<h1>Home</h1>";
     }
 
+    public function about(): void
+    {
+        echo "<h1>Sobre</h1>";
+    }
+
     /**
      * SITE NAV ERROR
      * @param array $data

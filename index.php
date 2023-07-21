@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 ob_start();
 
 require __DIR__ . "/vendor/autoload.php";
@@ -17,15 +19,15 @@ $route = new Router(url(), ":");
 /**
  * WEB ROUTES
  */
-$route->namespace("Souce\App");
-$route->get("/", "Web::home");
-$route->get("/", "Web::about");
+$route->namespace("Source\App");
+$route->get("/", "Web:home");
+$route->get("/sobre", "Web:about");
 
 /**
  * ERROR ROUTES
  */
-$route->namespace("Souce\App")->group("/ops");
-$route->get("/{errcode}", "Web::error");
+$route->namespace("Source\App")->group("/ops");
+$route->get("/{errcode}", "Web:error");
 
 /**
  * ROUTE
@@ -36,7 +38,7 @@ $route->dispatch();
  * ERROR REDIRECT
  */
 if ($route->error()) {
-    $route->redirect("ops/{$route->error()}");
+    $route->redirect("/ops/{$route->error()}");
 }
 
 
