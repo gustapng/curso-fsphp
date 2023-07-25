@@ -133,12 +133,10 @@ function str_limit_chars(string $string, int $limit, string $pointer = "..."): s
  */
 function url(string $path = null): string
 {
-    //var_dump($path);exit;
     if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
         if ($path) {
             return CONF_URL_TEST . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
         }
-        //var_dump($path);exit;
         return CONF_URL_TEST;
     };
 
@@ -147,6 +145,26 @@ function url(string $path = null): string
     }
 
     return CONF_URL_BASE;
+}
+
+/**
+ * @param string|null $path
+ * @return string
+ */
+function theme(string $path = null): string
+{
+    if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
+        if ($path) {
+            return CONF_URL_TEST . "/themes/" . CONF_VIEW_THEME . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+        }
+        return CONF_URL_TEST . "/themes/" . CONF_VIEW_THEME;
+    };
+
+    if ($path) {
+        return CONF_URL_BASE . "/themes/" . CONF_VIEW_THEME . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+    }
+
+    return CONF_URL_BASE . "/themes/" . CONF_VIEW_THEME;
 }
 
 /**
