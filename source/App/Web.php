@@ -20,8 +20,15 @@ class Web extends Controller
      */
     public function home(): void
     {
+        $head = $this->seo->render(
+            CONF_SITE_NAME . " - " . CONF_SITE_TITLE,
+            CONF_SITE_DESC,
+            url(),
+            url("assets/images/share.jpg")
+        );
+
         echo $this->view->render("home", [
-            "title" => "CaféControl - Gerencie suas contas com o melhor café"
+            "head" => $head
         ]);
     }
 

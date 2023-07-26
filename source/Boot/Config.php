@@ -17,7 +17,9 @@ define("CONF_URL_ADMIN", "/admin");
 /**
  * SITE
  */
-define("CONF_SITE_NAME", "UpInside");
+define("CONF_SITE_NAME", "CaféControl");
+define("CONF_SITE_TITLE", "Gerencie suas contas com o melhor café");
+define("CONF_SITE_DESC", "O CafeControl é um gerenciador de contas simples, poderoso e gratuito. O prazer de tomar um café e ter o controle total de suas contas.");
 define("CONF_SITE_LANG", "pt_BR");
 define("CONF_SITE_DOMAIN", "upinside.com.br");
 
@@ -31,6 +33,8 @@ define("CONF_SOCIAL_FACEBOOK_PAGE", "upinside");
 define("CONF_SOCIAL_FACEBOOK_AUTHOR", "robsonvleiteoficial");
 define("CONF_SOCIAL_GOOGLE_PAGE", "107305124528362639842");
 define("CONF_SOCIAL_GOOGLE_AUTHOR", "103958419096641225872");
+define("CONF_SOCIAL_INSTAGRAM_PAGE", "oguuxta");
+define("CONF_SOCIAL_YOUTUBE_PAGE", "gustavo ferreira");
 
 /**
  * DATES

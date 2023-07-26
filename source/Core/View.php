@@ -43,6 +43,8 @@ class View
      */
     public function render(string $templateName, array $data): string
     {
+        $this->engine->addData($data, ["_theme", "_admin"]);
+
         return $this->engine->render($templateName, $data);
     }
 
