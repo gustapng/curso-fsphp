@@ -22,6 +22,22 @@ $route = new Router(url(), ":");
 $route->namespace("Source\App");
 $route->get("/", "Web:home");
 $route->get("/sobre", "Web:about");
+
+// BLOG
+$route->get("/blog", "Web:blog");
+$route->get("/blog/page/{page}", "Web:blog");
+$route->get("/blog/{postName}", "Web:blogPost");
+
+// AUTH
+$route->get("/entrar", "Web:login");
+$route->get("/recuperar", "Web:forget");
+$route->get("/cadastrar", "Web:register");
+
+// OPTIN
+$route->get("/confirma", "Web:confirm");
+$route->get("/obrigado", "Web:success");
+
+// SERVICES
 $route->get("/termos", "Web:terms");
 
 /**
