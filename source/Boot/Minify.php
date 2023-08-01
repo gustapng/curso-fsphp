@@ -32,11 +32,10 @@ if (strpos(url(), "localhost")) {
     foreach ($jsDir as $js) {
         $jsFile = __DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/js/{$js}";
         if (is_file($jsFile) && pathinfo($jsFile)['extension'] == "js") {
-            $minCSS->add($jsFile);
             $minJS->add($jsFile);
         }
     }
 
     // Minify JS
-    $minCSS->minify( __DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/scripts.js");
+    $minJS->minify( __DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/scripts.js");
 }
