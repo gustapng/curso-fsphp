@@ -141,6 +141,7 @@ abstract class Model
     public function order(string $columnOrder): Model
     {
         $this->order = " ORDER BY {$columnOrder}";
+        return $this;
     }
 
     /**
@@ -150,6 +151,7 @@ abstract class Model
     public function limit(int $limit): Model
     {
         $this->limit = " LIMIT {$limit}";
+        return $this;
     }
 
     /**
@@ -159,6 +161,7 @@ abstract class Model
     public function offset(int $offset): Model
     {
         $this->offset = " OFFSET {$offset}";
+        return $this;
     }
 
     /**
@@ -179,7 +182,7 @@ abstract class Model
                 return $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
             }
 
-            return $stmt->fetch(static::class);
+            return $stmt->fetchObject(static::class);
 
         } catch (\PDOException $exception) {
             $this->fail = $exception;
@@ -251,7 +254,7 @@ abstract class Model
      * @param string $value
      * @return bool|null
      */
-    protected function delete(string $key, string $value): ?bool
+    public function delete(string $key, string $value): bool
     {
         try {
             $stmt = Connect::getInstance()->prepare("DELETE FROM " . static::$entity . " WHERE {$key} = :key");
@@ -260,7 +263,7 @@ abstract class Model
             return true;
         } catch (\PDOException $exception) {
             $this->fail = $exception;
-            return null;
+            return false ;
         }
     }
 

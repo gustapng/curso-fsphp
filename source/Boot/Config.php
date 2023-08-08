@@ -5,7 +5,7 @@
 define("CONF_DB_HOST", "localhost");
 define("CONF_DB_USER", "root");
 define("CONF_DB_PASS", "");
-define("CONF_DB_NAME", "upinside");
+define("CONF_DB_NAME", "fullstack");
 
 /**
  * PROJECT URLs
