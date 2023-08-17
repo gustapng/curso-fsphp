@@ -135,6 +135,19 @@ abstract class Model
     }
 
     /**
+     * @param int $id
+     * @param string $columns
+     * @return null|mixed|Model
+     */
+    public function findById(int $id, string $columns = "*"): ?Model
+    {
+        $find =  $this->find("id = :id", "id={$id}", $columns);
+        //var_dump($find, $id, $columns);
+        return $find->fetch();
+    }
+
+
+    /**
      * @param string $columnOrder
      * @return Model
      */
