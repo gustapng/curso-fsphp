@@ -4,8 +4,10 @@ namespace Source\App;
 
 use Source\Core\Connect;
 use Source\Core\Controller;
+use Source\Models\Category;
 use Source\Models\Faq\Channel;
 use Source\Models\Faq\Question;
+use Source\Models\Post;
 use Source\Models\User;
 use Source\Support\Pager;
 
@@ -41,7 +43,12 @@ class Web extends Controller
 
         echo $this->view->render("home", [
             "head" => $head,
-            "video" => "qBN2UgCAVqk"
+            "video" => "qBN2UgCAVqk",
+            "blog" => (new Post())
+                ->find()
+                ->order("post_at DESC")
+                ->limit(6)
+                ->fetch(true)
         ]);
     }
 

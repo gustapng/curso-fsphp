@@ -1,6 +1,6 @@
 <article class="blog_article">
-    <a title="Post" href="<?= url("/blog/titulo-post"); ?>">
-        <img title="Blog" alt="Blog" src="<?= theme("/assets/images/home-featured.jpg"); ?>"/>
+    <a title="<?= $post->title; ?>" href="<?= url("/blog/{$post->uri}"); ?>">
+        <img title="<?= $post->title; ?>" alt="<?= $post->title; ?>" src="<?= image($post->cover, 600, 340) ?>"/>
     </a>
     <header>
         <p class="meta">Blog &bull; Por Robson V. Leite &bull; 22/12/18 23h23</p>
