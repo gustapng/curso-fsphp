@@ -88,11 +88,13 @@ class Web extends Controller
             theme("assets/images/share.jpg")
         );
 
-        $pager = new Pager(url("/blog/page/"));
-        $pager->pager(100, 10, ($data['page'] ?? 1));
+        $blog  = (new Post())->find();
+        $pager = new Pager(url("/blog/p/"));
+        $pager->pager($blog->count(), 9, ($data['page'] ?? 1));
 
         echo $this->view->render("blog", [
             "head" => $head,
+            "blog" => $blog->limit($pager->limit())->offset($pager->offset())->fetch(true),
             "paginator" => $pager->render()
         ]);
     }
@@ -104,18 +106,30 @@ class Web extends Controller
      */
     public function blogPost(?array $data): void
     {
-        $postName = $data['postName'];
+        $post = (new Post())->findByUri($data['uri']);
+        if (!$post) {
+            redirect("/404");
+        }
 
+        $post->views += 1;
+        $post->save();
+
+        //var_dump($post->cover);
         $head = $this->seo->render(
-            " POST NAME - " . CONF_SITE_NAME,
-            "POST HEADLINE",
-            url("/blog/{$postName}"),
-            theme("BLOG IMAGE")
+            "{$post->title} - " . CONF_SITE_NAME,
+            "{$post->subtitle}",
+            url("/blog/{$post->uri}"),
+            image($post->cover, 1200, 628)
         );
 
         echo $this->view->render("blog-post", [
             "head" => $head,
-            "data" => $this->seo
+            "post" => $post,
+            "related" => (new Post())
+            ->find("category = :c AND id != :i", "c={$post->category}&i={$post->id}")
+            ->order("rand()")
+            ->limit(3)
+            ->fetch(true)
         ]);
     }
 
