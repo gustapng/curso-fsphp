@@ -6,7 +6,7 @@
         <p><?= ($title ?? "Confira nossas dicas para controlar melhor suas contas"); ?></p>
         <form name="search" action="<?= url("/blog/buscar"); ?>" method="post" enctype="multipart/form-data">
             <label>
-                <input type="text" name="s" placeholder="Encontre um artigo:"/>
+                <input type="text" name="s" placeholder="Encontre um artigo:" required/>
                 <button class="icon-search icon-notext"></button>
             </label>
         </form>
@@ -46,9 +46,9 @@
     <?php if(empty($blog)): ?>
     <div class="blog_content container content">
         <div class="blog_articles">
-            <?php for ($i = 0; $i <= 8; $i++): ?>
-                <?php $this->insert("blog-list"); ?>
-            <?php endfor; ?>
+            <?php foreach ($blog as $post): ?>
+                <?php $this->insert("blog-list", ["post" => $post]); ?>
+            <?php endforeach; ?>
         </div>
 
         <?= $paginator; ?>
