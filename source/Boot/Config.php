@@ -22,6 +22,12 @@ define("CONF_SITE_TITLE", "Gerencie suas contas com o melhor café");
 define("CONF_SITE_DESC", "O CafeControl é um gerenciador de contas simples, poderoso e gratuito. O prazer de tomar um café e ter o controle total de suas contas.");
 define("CONF_SITE_LANG", "pt_BR");
 define("CONF_SITE_DOMAIN", "upinside.com.br");
+define("CONF_SITE_ADDR_STREET", "SC 406 - Rod. Dr° Antônio Luiz Moura Gonzaga");
+define("CONF_SITE_ADDR_NUMBER", "3339");
+define("CONF_SITE_ADDR_COMPLEMENT", "Bloco A, Sala 208");
+define("CONF_SITE_ADDR_CITY", "Florianópolis");
+define("CONF_SITE_ADDR_STATE", "SC");
+define("CONF_SITE_ADDR_ZIPCODE", "88048-301");
 
 /**
  * SOCIAL
