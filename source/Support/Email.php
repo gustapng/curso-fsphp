@@ -91,6 +91,7 @@ class Email
         }
 
         try {
+            var_dump($this->data->toEmail, $this->data->toName, $fromEmail, $fromName);
             $this->mail->Subject = $this->data->subject;
             $this->mail->msgHTML($this->data->message);
             $this->mail->addAddress($this->data->toEmail, $this->data->toName);
