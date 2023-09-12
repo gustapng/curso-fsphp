@@ -22,6 +22,28 @@ class Auth extends Model
     }
 
     /**
+     * @return User|null
+     */
+    public static function user(): ?User
+    {
+        $session = new Session();
+        if (!$session->has("authUser")) {
+            return null;
+        }
+
+        return (new User())->findById($session->authUser);
+    }
+
+    /**
+     * log-out
+     */
+    public static function logout(): void
+    {
+        $session = new Session();
+        $session->unset("authUser");
+    }
+
+    /**
      * @param User $user
      * @return bool
      */
@@ -48,6 +70,12 @@ class Auth extends Model
         return true;
     }
 
+    /**
+     * @param string $email
+     * @param string $password
+     * @param bool $save
+     * @return bool
+     */
     public function login(string $email, string $password, bool $save = false): bool
     {
         if (!is_email($email)) {
@@ -88,6 +116,36 @@ class Auth extends Model
         return true;
     }
 
+    /**
+     * @param string $email
+     * @return bool
+     */
+    public function forget(string $email): bool
+    {
+        $user = (new User())->findByEmail($email);
 
+        if (!$user) {
+            $this->message->warning("O e-mail informado não está cadastrado");
+            return false;
+        }
+
+        $user->forget = md5(uniqid(rand(), true));
+        $this->safe();
+
+        $view = new View(__DIR__ . "/../../shared/views/email");
+        $message = $view->render("forget", [
+            "first_name" => $user->first_name,
+            "forget_link" => url("/recuperar/{$user->email}|{$user->forget}")
+        ]);
+
+        (new Email())->bootstrap(
+            "Recupere sua senha no " . CONF_SITE_NAME,
+            $message,
+            $user->email,
+            "{$user->first_name} {$user->last_name}"
+        )->send();
+
+        return true;
+    }
 
 }
